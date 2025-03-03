@@ -22,7 +22,7 @@ class Product(db.Model):
 # Route: Home Page
 @app.route('/')
 def home():
-    return 'Inventory Management'
+    return render_template('index.html')
 
 # Route: Display Inventory (Product List)
 @app.route('/inventory')
