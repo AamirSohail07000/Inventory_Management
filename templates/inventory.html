@@ -7,13 +7,27 @@
 <body>
     <div class="container mt-4">
         <h2>Inventory</h2>
+
+        <!-- Category Filter Form -->
+        <form method="GET" action="{{ url_for('inventory') }}" class="mb-3">
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category" class="form-select w-25 d-inline" onchange="this.form.submit()">
+                <option value="">All</option>
+                {% for cat in categories %}
+                <option value="{{ cat.category }}" {% if request.args.get('category') == cat.category %}selected{% endif %}>
+                    {{ cat.category }}
+                </option>
+                {% endfor %}
+            </select>
+        </form>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Price per unit/kg</th>
                     <th>Category</th>
                 </tr>
             </thead>
@@ -22,8 +36,8 @@
                 <tr>
                     <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td>${{ product.price }}</td>
+                    <td>{{ product.quantity }} {{ product.unit }}</td>
+                    <td>₹ {{ product.price }}</td>
                     <td>{{ product.category }}</td>
                 </tr>
                 {% endfor %}
