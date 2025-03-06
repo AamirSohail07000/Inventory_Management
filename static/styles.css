@@ -1,10 +1,25 @@
 body {
   background-color: #f4f4f4;
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-
+header {
+  background-color: #3c9b04;
+  color: rgb(20, 19, 19);
+  padding: 15px 0;
+}
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #222;
+  color: white;
+  width: 100%;
+  margin-top: 380px;
+}
 .container {
-  margin-top: 100px;
+  margin-top: 500px;
   background: white;
   padding: 50px;
   border-radius: 10px;
