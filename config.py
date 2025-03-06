@@ -4,7 +4,7 @@ from dotenv import load_dotenv # type: ignore
 load_dotenv()
 
 # SQLAlchemy Connection String (Uses pymysql)
-SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:786123%40Ms@127.0.0.1/mbctraders_inventorydb'
 SQLALCHEMY_TRACK_MODIFICATIONS = False  # Disable modification tracking to save resources
 
 
