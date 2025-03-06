@@ -5,7 +5,7 @@ import os
 
 # Initialize Flask app
 app = Flask(__name__)
-app.secret_key = SECRET_KEY
+# app.secret_key = SECRET_KEY
 
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback_secret_key")
 # Load database configuration from config.py
@@ -38,7 +38,7 @@ def inventory():
     else:
         products = Product.query.all()
     
-    categories = Product.query.with_entities(Product.category).distinct()
+    categories = [c[0] for c in Product.query.with_entities(Product.category).distinct().all()]
     return render_template("inventory.html", products=products, categories=categories)
 
 # Route: Add Product (GET - Show Form, POST - Handle Submission)
