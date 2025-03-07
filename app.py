@@ -32,13 +32,17 @@ def home():
 # Route: Display Inventory (Product List)
 @app.route('/inventory')
 def inventory():
-    category = request.args.get("category")  # Get category from URL query params
+    category = request.args.get("category", "").strip().lower()  # Normalize category input
+    
+    # Fetch all unique categories for the filter dropdown
+    categories = sorted(set([c.category for c in Product.query.all()]))  
+
+    # Apply filter only if a category is selected
     if category:
-        products = Product.query.filter_by(category=category).all()
+        products = Product.query.filter(Product.category.ilike(category)).all()
     else:
         products = Product.query.all()
-    
-    categories = [c[0] for c in Product.query.with_entities(Product.category).distinct().all()]
+
     return render_template("inventory.html", products=products, categories=categories)
 
 # Route: Add Product (GET - Show Form, POST - Handle Submission)
