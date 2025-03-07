@@ -1,49 +1,153 @@
+/* ===== Global Styles ===== */
 body {
   background-color: #f4f4f4;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
+
+/* ===== Header Styling ===== */
 header {
-  background-color: #3c9b04;
-  color: rgb(20, 19, 19);
+  background-color: #3c9b04; /* Green header background */
+  color: rgb(20, 19, 19); /* Dark text color */
   padding: 15px 0;
 }
-/* Footer Styling */
+
+header h5 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Footer Styling ===== */
 footer {
   text-align: center;
   padding: 10px;
   background-color: #222;
   color: white;
   width: 100%;
-  margin-top: 380px;
-}
-.container {
-  margin-top: 500px;
-  background: white;
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 0;
+  margin-top: 50px; /* Adjust spacing */
 }
 
+/* ===== Container (Main Content) Styling ===== */
+.container {
+  margin-top: 80px; /* Adjusted for better spacing */
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px; /* Limits content width for better readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Home Page Styling ===== */
 .title {
   font-size: 2.5rem;
   color: #b57300;
   font-weight: bold;
+  text-align: center;
 }
+
 .welcome {
   font-size: 1.8rem;
   color: #333;
   font-weight: bold;
+  text-align: center;
 }
 
 .description {
   font-size: 1.2rem;
   margin-bottom: 30px;
   color: #555;
+  text-align: center;
+}
+
+/* ===== Buttons Styling ===== */
+.buttons {
+  text-align: center;
 }
 
 .buttons .btn {
   width: 200px;
   margin: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* ===== Form Styling ===== */
+form label {
+  font-weight: bold;
+}
+
+form .form-control {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+form .form-select {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* ===== Table Styling ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+table th {
+  background-color: #3c9b04;
+  color: white;
+  font-weight: bold;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .buttons .btn {
+    width: 100%;
+  }
+
+  nav ul li {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }
