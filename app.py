@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from config import SECRET_KEY
 import os
+from sqlalchemy import text
 # Initialize Flask app
 app = Flask(__name__)
 # app.secret_key = SECRET_KEY
@@ -92,6 +93,26 @@ def delete_product(id):
         flash(f"Product '{product.name}' deleted successfully!", "success")
     else:
         flash("Product not found!", "danger")
+
+    return redirect(url_for('inventory'))  # Redirect back to inventory page
+
+# Clear Inventory action
+@app.route('/clear_inventory', methods=['POST'])
+def clear_inventory():
+    try:
+        # Step 1: Delete all products
+        db.session.query(Product).delete()
+        db.session.commit()
+
+        # Step 2: Reset AUTO_INCREMENT to 101
+        db.session.execute(text("ALTER TABLE product AUTO_INCREMENT = 101"))
+        db.session.commit()
+
+        flash("Inventory cleared successfully!", "success")
+    except Exception as e:
+        db.session.rollback()
+        print("Error:", e)  # Print the actual error in the console
+        flash(f"Error clearing inventory! {str(e)}", "danger")
 
     return redirect(url_for('inventory'))  # Redirect back to inventory page
 
