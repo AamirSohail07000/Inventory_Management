@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from config import SECRET_KEY
 import os
-
 # Initialize Flask app
 app = Flask(__name__)
 # app.secret_key = SECRET_KEY
@@ -49,7 +48,7 @@ def inventory():
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
     if request.method == 'POST':
-        name = request.form.get('name')
+        name = request.form.get('name').strip() #Remove leading?trailing spaces
         quantity = request.form.get('quantity')
         unit = request.form.get('unit')
         price = request.form.get('price')
@@ -58,26 +57,44 @@ def add_product():
         # Validate input fields
         if not name or not quantity or not unit or not price or not category:
             flash("All fields are required!", "danger")
-            return redirect(url_for('add_product'))
 
-        try:
-            quantity = float(quantity)  # Convert quantity to float
-            price = float(price)  # Convert price to float
-        except ValueError:
-            flash("Invalid number format for quantity or price.", "danger")
-            return redirect(url_for('add_product'))
+        else:
+            try:
+                quantity = float(quantity)  # Convert quantity to float
+                price = float(price)  # Convert price to float
+                # Check if the product already exists
+                existing_product = Product.query.filter_by(name=name, unit=unit, category=category).first()
+                
+                if existing_product:
+                    # If product exists, update the quantity instead of adding a duplicate
+                    existing_product.quantity += quantity
+                    existing_product.price = price  # Optionally update the price
+                    db.session.commit()
+                    flash(f"Updated quantity for existing product: {name} ({quantity} {unit})!", "success")
+                else:
+                    # Add new product with a unique ID
+                    new_product = Product(name=name, quantity=quantity, unit=unit, price=price, category=category)
+                    db.session.add(new_product)
+                    db.session.commit()
+                    flash(f"Product '{name}' added successfully!", "success")
 
-        # Create a new Product instance
-        new_product = Product(name=name, quantity=quantity, unit=unit, price=price, category=category)
+            except ValueError:
+                    flash("Invalid number format for quantity or price.", "danger")
 
-        # Add and commit to the database
-        db.session.add(new_product)
-        db.session.commit()
-
-        flash(f"Product '{name}' added successfully as {quantity} {unit}!", "success")
-        return redirect(url_for('add_product'))  # Redirect to inventory page
-
+    # Stay on the same page after submission
     return render_template('add_product.html')
+@app.route('/delete_product/<int:id>', methods=['GET'])
+def delete_product(id):
+    product = Product.query.get(id)  # Fetch product by ID
+    if product:
+        db.session.delete(product)
+        db.session.commit()
+        flash(f"Product '{product.name}' deleted successfully!", "success")
+    else:
+        flash("Product not found!", "danger")
+
+    return redirect(url_for('inventory'))  # Redirect back to inventory page
+
 
 # Run Flask App
 if __name__ == "__main__":
