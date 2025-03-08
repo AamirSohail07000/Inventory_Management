@@ -27,6 +27,7 @@
                 <th>Quantity</th>
                 <th>Price per unit/kg</th>
                 <th>Category</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,12 @@
                 <td>{{ product.quantity }} {{ product.unit }}</td>
                 <td>₹ {{ product.price }}</td>
                 <td>{{ product.category }}</td>
+                <td>
+                    <a href="{{ url_for('delete_product', id=product.id) }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete {{ product.name }}?');">
+                        Delete
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
