@@ -75,7 +75,7 @@ def add_product():
         db.session.commit()
 
         flash(f"Product '{name}' added successfully as {quantity} {unit}!", "success")
-        return redirect(url_for('inventory'))  # Redirect to inventory page
+        return redirect(url_for('add_product'))  # Redirect to inventory page
 
     return render_template('add_product.html')
 
