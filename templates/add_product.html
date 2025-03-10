@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">Add a New Product</h2>
 
-    <!-- Flash Messages -->
+    <!-- Flash Messages: Displays success or error messages dynamically -->
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -18,17 +18,30 @@
         {% endif %}
     {% endwith %}
 
-    <!-- Add Product Form -->
+    <!-- Product Addition Form -->
     <form method="POST" action="{{ url_for('add_product') }}">
+        
+        <!-- Product Name Input with Dropdown -->
         <div class="mb-3">
             <label for="name" class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            
+            <!-- Datalist for auto-suggestions -->
+            <input list="productList" class="form-control" id="name" name="name" required>
+            
+            <datalist id="productList">
+                {% for product in product_names %}
+                    <option value="{{ product }}"></option>
+                {% endfor %}
+            </datalist>
         </div>
 
+
+        <!-- Quantity Input with Unit Selection -->
         <div class="mb-3">
             <label for="quantity" class="form-label">Quantity</label>
             <div class="input-group">
                 <input type="number" class="form-control" id="quantity" name="quantity" min="1" step="0.01" required>
+                <!-- Dropdown to select unit (pieces or kilograms) -->
                 <select class="form-select" id="unit" name="unit">
                     <option value="pcs">pcs</option>
                     <option value="kg">kg</option>
@@ -36,11 +49,14 @@
             </div>
         </div>
 
+        <!-- Price Input -->
         <div class="mb-3">
             <label for="price" class="form-label">Price per unit/kg (₹)</label>
             <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+            <!-- Ensures price is entered with decimal values -->
         </div>
 
+        <!-- Product Category Dropdown -->
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
             <select class="form-select" id="category" name="category" required>
@@ -49,10 +65,17 @@
                 <option value="Plumbing">Plumbing</option>
                 <option value="Construction">Construction</option>
             </select>
+            <!-- Provides predefined categories to categorize the product -->
         </div>
 
+        <!-- Submit & Back Buttons -->
         <button type="submit" class="btn btn-primary">Add Product</button>
         <a href="{{ url_for('inventory') }}" class="btn btn-secondary">Back to Inventory</a>
+        <!-- Redirects back to inventory page -->
     </form>
+
 </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+  
+    
 {% endblock %}
