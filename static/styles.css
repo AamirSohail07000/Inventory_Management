@@ -44,8 +44,8 @@ nav ul li a:hover {
 footer {
   text-align: center;
   padding: 10px;
-  background-color: #222;
-  color: white;
+  background-color: #0a0a0a;
+  color: rgb(245, 239, 239);
   width: 100%;
   position: relative;
   bottom: 0;
@@ -67,7 +67,7 @@ footer {
 /* ===== Home Page Styling ===== */
 .title {
   font-size: 2.5rem;
-  color: #b57300;
+  color: #faaa21;
   font-weight: bold;
   text-align: center;
 }
