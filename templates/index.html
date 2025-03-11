@@ -3,14 +3,44 @@
 {% block title %}Home - My Inventory{% endblock %}
 
 {% block content %}
-    <div class="container text-center mt-5">
-        <h1 class="title">MBC Traders & Hardware</h1>
-        <h4 class="welcome">Welcome to Inventory Management</h4>
-        <p class="description">Manage your products efficiently with our simple inventory system.</p>
-        
-        <div class="buttons">
-            <a href="{{ url_for('inventory') }}" class="btn btn-primary btn-lg">View Inventory</a>
-            <a href="{{ url_for('add_product') }}" class="btn btn-success btn-lg">Add Product</a>
-        </div>
+<div class="container text-center mt-5">
+    <h1 class="title">MBC Traders & Hardware</h1>
+    <h4 class="welcome">Welcome to Inventory Management</h4>
+    <p class="description">Manage your products efficiently with our simple inventory system.</p>
+
+    <!-- New Section: About the Store -->
+    <div class="about-section mt-4">
+        <h3>About Us</h3>
+        <p>
+            MBC Traders & Hardware is your trusted supplier for high-quality hardware tools,  
+            construction materials, and industrial supplies. We provide top-notch customer  
+            service and ensure timely delivery of essential products.
+        </p>
     </div>
+
+    <!-- New Section: Features of Inventory System -->
+    <div class="features-section mt-4">
+        <h3>Key Features</h3>
+        <ul class="list-unstyled">
+            <li>✔ Easy product addition and management</li>
+            <li>✔ Real-time inventory tracking</li>
+            <li>✔ Category-wise product filtering</li>
+            <li>✔ One-click product deletion and updates</li>
+        </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="buttons mt-4">
+        <a href="{{ url_for('inventory') }}" class="btn btn-primary btn-lg">View Inventory</a>
+        <a href="{{ url_for('add_product') }}" class="btn btn-success btn-lg">Add Product</a>
+    </div>
+
+    <!-- New Section: Contact Details -->
+    <div class="contact-section mt-5">
+        <h3>Contact Us</h3>
+        <p><strong>Address:</strong> 123 Market Street, City, Country</p>
+        <p><strong>Email:</strong> support@mbctraders.com</p>
+        <p><strong>Phone:</strong> +123-456-7890</p>
+    </div>
+</div>
 {% endblock %}
